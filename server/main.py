@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-# Project name
+# Set project name
 project_name = "KDU Student Management System"
 
 # Instantiate FastAPI app
