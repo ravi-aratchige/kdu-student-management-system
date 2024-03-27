@@ -1,11 +1,10 @@
 """Contains controllers related to student functionalities.
 """
 
-from sqlalchemy.orm import Session
-from config.database import get_session, db_session_dependency
+from fastapi import HTTPException
 from models.students import StudentModel
-from fastapi import Depends, HTTPException
 from schemas.students import StudentSchema
+from config.database import db_session_dependency
 
 
 # *********************** CONTROLLERS ***********************
