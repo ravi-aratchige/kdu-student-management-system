@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from config.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 from routes.students import router as student_router
+from routes.courses import router as course_router
 
 # Create database tables based on defined models
 Base.metadata.create_all(bind=engine)
@@ -33,6 +34,7 @@ app.add_middleware(
 
 # Bind routers to app
 app.include_router(student_router)
+app.include_router(course_router)
 
 
 # Root route
