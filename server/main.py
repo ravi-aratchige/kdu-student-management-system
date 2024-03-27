@@ -1,9 +1,9 @@
-from fastapi import FastAPI, HTTPException, Depends
-from sqlalchemy.orm import Session
-from config.database import SessionLocal, engine, Base
-from models.students import StudentModel
-from schemas.students import StudentSchema
+from fastapi import FastAPI
+from config.database import engine, Base
+from fastapi.middleware.cors import CORSMiddleware
+from routes.students import router as student_router
 
+# Create database tables based on defined models
 Base.metadata.create_all(bind=engine)
 
 # Set project name
@@ -15,6 +15,25 @@ app = FastAPI(
     description=f"This is the Rest API for the backend of the {project_name}.",
 )
 
+# Define allowed origins for CORS
+origins = [
+    "*",
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+# Setup CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Bind routers to app
+app.include_router(student_router)
+
 
 # Root route
 @app.get("/", tags=["Core"])
@@ -22,40 +41,3 @@ async def root():
     return {
         "message": "Hello from the API!",
     }
-
-
-# Dependency to get the database session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-# Create a new student
-@app.post("/students/", tags=["Student Management"])
-async def create_student(student: StudentSchema, db: Session = Depends(get_db)):
-    # Create a new StudentModel object from the validated data
-    new_student = StudentModel(
-        reg_number=student.reg_number,
-        first_name=student.first_name,
-        last_name=student.last_name,
-        address=student.address,
-        email=student.email,
-        date_of_birth=student.date_of_birth,
-        nic_number=student.nic_number,
-        degree=student.degree,
-        active_course_codes=student.active_course_codes,
-        completed_course_codes=student.completed_course_codes,
-        semester=student.semester,
-        batch=student.batch,
-    )
-
-    # Add the new student to the database session and commit
-    db.add(new_student)
-    db.commit()
-    db.refresh(new_student)
-
-    # Return the newly created student
-    return new_student
