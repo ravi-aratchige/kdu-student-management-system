@@ -17,7 +17,10 @@ db_name = os.getenv("DB_NAME")
 URL_DATABASE = f"postgresql://{db_username}:{db_password}@{db_hostname}:5432/{db_name}"
 
 # Create database engine to interpret SQL queries and manage transactions
-engine = create_engine(URL_DATABASE)
+engine = create_engine(
+    URL_DATABASE,
+    echo=False,
+)
 
 # Create session factory to produce new session objects bound to the database engine
 SessionLocal = sessionmaker(
