@@ -1,4 +1,12 @@
-"""Contains routes related to course functionalities.
+"""Contains routes related to course functionalities.\n
+
+List of routes:
+
+1. Create new course
+2. Retrieve all courses
+3. Retrieve all courses for a degree
+4. Update course
+5. Delete course
 """
 
 from fastapi import APIRouter
