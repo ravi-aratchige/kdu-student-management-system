@@ -6,11 +6,12 @@ This backend has been developed as a REST API using the <b>FastAPI</b> web frame
 
 ## Table of Contents
 
-1. [Project Structure](#project-structure)
-2. [Technologies](#technologies)
-3. [Run](#run)
-   - [Setup with Docker](#setup-with-docker)
-   - [Manual Setup](#manual-setup)
+1. [Project Structure](#project-structure-🌳)
+2. [Technologies](#technologies-🛠️)
+3. [Run](#run-⚡)
+   - [Setup with Docker](#setup-with-docker-🐳)
+   - [Manual Setup](#manual-setup-👷)
+4. [License](#license-⚖️)
 
 ## Project Structure 🌳
 
