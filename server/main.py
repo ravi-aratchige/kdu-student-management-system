@@ -1,3 +1,6 @@
+"""Entry point into the FastAPI backend of the KDU Student Management System.
+"""
+
 from fastapi import FastAPI
 from config.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
