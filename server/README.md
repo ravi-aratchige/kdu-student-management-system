@@ -6,14 +6,14 @@ This backend has been developed as a REST API using the <b>FastAPI</b> web frame
 
 ## Table of Contents
 
-1. [Project Structure](#project-structure-🌳)
-2. [Technologies](#technologies-🛠️)
-3. [Run](#run-⚡)
-   - [Setup with Docker](#setup-with-docker-🐳)
-   - [Manual Setup](#manual-setup-👷)
-4. [License](#license-⚖️)
+1. [Project Structure](#project-structure)
+2. [Technologies](#technologies)
+3. [Run](#run)
+   - [Setup with Docker](#setup-with-docker)
+   - [Manual Setup](#manual-setup)
+4. [License](#license)
 
-## Project Structure 🌳
+## Project Structure
 
 This directory has been structured as given below:
 
@@ -50,7 +50,7 @@ server
 
 Unlike conventional structuring formats for Python applications, where files such as `crud.py` and `container.py` can be found, this project has been structured similar to an ExpressJS API (and APIs developed with similar frameworks), to ensure that it is open for contributions by developers with non-Pythonic backgrounds, while ensuring maintainability.
 
-## Technologies 🛠️
+## Technologies
 
 The backend of the KDU Student Management System has been developed using the following technology stack:
 
@@ -62,7 +62,7 @@ The backend of the KDU Student Management System has been developed using the fo
 
 ## Run ⚡
 
-### Setup with Docker 🐳
+### Setup with Docker
 
 If you have <a href="https://docs.docker.com/engine/install/">Docker Engine</a> and <a href="https://git-scm.com/">Git</a> installed on your local machine, you can run this application by following these steps.
 
@@ -92,7 +92,7 @@ docker run kdusms-fastapi -p 8000:8000 kdusms-server
 
 Uvicorn will then serve the backend on <a href="http://localhost:8000">http://localhost:8000</a>.
 
-### Manual Setup 👷
+### Manual Setup
 
 #### Prerequisites
 
@@ -193,6 +193,6 @@ uvicorn main:app --reload
 
 Uvicorn will then serve the backend on <a href="http://localhost:8000">http://localhost:8000</a>.
 
-## License ⚖️
+## License
 
 This project is licensed under the <a href="https://github.com/ravi-aratchige/kdu-student-management-system/blob/main/LICENSE">Apache License</a>.
