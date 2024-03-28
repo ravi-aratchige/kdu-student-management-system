@@ -42,6 +42,7 @@ router.post(
     description="This path operation creates a new student in the database, using data received in the request body.",
 )(register_new_student)
 
+
 # ----------------------------------------------------------
 # @description      Retrieve all students
 # @methods          GET
@@ -54,6 +55,7 @@ router.get(
     description="This path operation retrieves all students from the database.",
 )(get_all_students)
 
+
 # ----------------------------------------------------------
 # @description      Retrieve student by registration number
 # @methods          GET
@@ -65,6 +67,7 @@ router.get(
     summary="Get student by registration number",
     description="This path operation retrieves a single student based on the user's registration number (provided as a path parameter).",
 )(get_student_by_reg_number)
+
 
 # ----------------------------------------------------------
 # @description      Retrieve student by ID (deprecated)
@@ -79,6 +82,7 @@ router.get(
     deprecated=True,
 )(get_student_by_id)
 
+
 # ----------------------------------------------------------
 # @description      Update student details
 # @methods          GET
@@ -90,6 +94,7 @@ router.patch(
     summary="Update student",
     description="This path operation updates the information of a user in the database (retrieved using registration number in path parameters).",
 )(update_student)
+
 
 # ----------------------------------------------------------
 # @description      Delete student
