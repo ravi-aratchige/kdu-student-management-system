@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Heading } from '@chakra-ui/react';
 import { Flex } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/react';
@@ -16,7 +17,9 @@ export default function NavigationBar() {
             zIndex={'1'}
         >
             <Center paddingLeft={'2rem'}>
-                <Heading>KDU Student Management System</Heading>
+                <Link href={'/'}>
+                    <Heading>KDU Student Management System</Heading>
+                </Link>
             </Center>
             <Center paddingRight={'2rem'}>
                 <h1>Settings</h1>
