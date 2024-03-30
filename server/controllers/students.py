@@ -21,6 +21,8 @@ async def register_new_student(student: StudentSchema, db: db_session_dependency
         reg_number=student.reg_number,
         first_name=student.first_name,
         last_name=student.last_name,
+        gender=student.gender,
+        phone_number=student.phone_number,
         address=student.address,
         email=student.email,
         date_of_birth=student.date_of_birth,
@@ -29,8 +31,25 @@ async def register_new_student(student: StudentSchema, db: db_session_dependency
         active_course_codes=student.active_course_codes,
         completed_course_codes=student.completed_course_codes,
         semester=student.semester,
-        batch=student.batch,
+        intake=student.intake,
     )
+
+    # Check if student with same registration number or NIC number already exists
+    existing_student = (
+        db.query(StudentModel)
+        .filter(
+            StudentModel.reg_number == student.reg_number
+            or StudentModel.nic_number == student.nic_number
+        )
+        .first()
+    )
+
+    # Raise 409 HTTPException if student already exists in database
+    if existing_student is not None:
+        raise HTTPException(
+            status_code=409,
+            detail="Student already exists",
+        )
 
     # Add the new student to the database session and commit
     db.add(new_student)

@@ -6,4 +6,7 @@ from typing import List
 class CourseSchema(BaseModel):
     course_name: str
     course_code: str
+    course_credits: int
+    course_semester: int
+    optional: bool = False
     course_degrees: List[str]
