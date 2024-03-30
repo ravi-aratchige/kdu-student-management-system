@@ -19,6 +19,10 @@ export default function StudentInformation(props) {
                 </Text>
 
                 <Text fontWeight={'bold'} paddingBottom={'1.5rem'}>
+                    Gender
+                </Text>
+
+                <Text fontWeight={'bold'} paddingBottom={'1.5rem'}>
                     Address
                 </Text>
 
@@ -51,15 +55,17 @@ export default function StudentInformation(props) {
 
                 <Text paddingBottom={'1.5rem'}>{student.reg_number}</Text>
 
+                <Text paddingBottom={'1.5rem'}>{student.gender}</Text>
+
                 <Text paddingBottom={'1.5rem'}>{student.address}</Text>
 
-                <Text paddingBottom={'1.5rem'}>076 494 2027</Text>
+                <Text paddingBottom={'1.5rem'}>{student.phone_number}</Text>
 
                 <Text paddingBottom={'1.5rem'}>{student.email}</Text>
 
                 <Text paddingBottom={'1.5rem'}>{student.degree}</Text>
 
-                <Text paddingBottom={'1.5rem'}>{student.batch}</Text>
+                <Text paddingBottom={'1.5rem'}>{student.intake}</Text>
 
                 <Text paddingBottom={'1.5rem'}>{student.semester}</Text>
             </Box>
