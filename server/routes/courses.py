@@ -5,17 +5,19 @@ List of routes:
 1. Create new course
 2. Retrieve all courses
 3. Retrieve all courses for a degree
-4. Update course
-5. Delete course
+4. Retrieve all courses for a student
+5. Update course
+6. Delete course
 """
 
 from fastapi import APIRouter
 from controllers.courses import (
     create_course,
-    delete_course,
     get_all_courses,
     get_all_courses_for_degree,
+    get_all_courses_for_student,
     update_course,
+    delete_course,
 )
 
 # Setup course router
@@ -66,6 +68,20 @@ router.get(
     description="""This path operation retrieves all courses relevant to a specific degree.
     The degree must be a path parameter with hyphen-separated words and lowercase letters.""",
 )(get_all_courses_for_degree)
+
+
+# ----------------------------------------------------------
+# @description      Retrieve all courses for a student
+# @methods          GET
+# @route            /courses/{reg_number}
+# @access           OPEN
+# ----------------------------------------------------------
+router.get(
+    path="/{reg_number}",
+    summary="Get all courses for a student",
+    description="""This path operation retrieves all courses relevant to a student.
+    The student's registration number is received as a path parameter.""",
+)(get_all_courses_for_student)
 
 
 # ----------------------------------------------------------
