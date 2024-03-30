@@ -63,7 +63,7 @@ router.get(
 # @access           OPEN
 # ----------------------------------------------------------
 router.get(
-    path="/{degree_name}",
+    path="/degree/{degree_name}",
     summary="Get all courses for a degree",
     description="""This path operation retrieves all courses relevant to a specific degree.
     The degree must be a path parameter with hyphen-separated words and lowercase letters.""",
