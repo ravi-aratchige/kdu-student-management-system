@@ -1,26 +1,30 @@
+'use client';
+
+import Link from 'next/link';
 import { Box } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
 
-const getData = async () => {
-    // Get response from API endpoint
-    const response = await fetch('http://localhost:8000/students/');
+export default function StudentList({ degree }) {
+    const [students, setStudents] = useState([]);
 
-    // Throw error if response is not ok :(
-    if (!response.ok) {
-        throw new Error('Failed to fetch API data');
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/students/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch API data');
+                }
+                const studentData = await response.json();
+                setStudents(studentData.data);
+            } catch (error) {
+                console.error('Error fetching student data:', error);
+            }
+        };
 
-    // Return JSONified output if response is ok :)
-    return response.json();
-};
-
-export default async function StudentList({ degree }) {
-    // Get JSON object of all students
-    const studentData = await getData();
-
-    // Separate array of "data" from JSON object
-    const students = studentData.data;
+        fetchData();
+    }, []);
 
     return (
         <Box w={'33%'}>
@@ -31,14 +35,22 @@ export default async function StudentList({ degree }) {
             {students
                 .filter((student) => student.degree === degree)
                 .map((student) => (
-                    <Box paddingBottom={'2rem'} key={student.reg_number}>
-                        {/* Student name */}
-                        <Text as={'b'}>
-                            {student.first_name} {student.last_name}
-                        </Text>
+                    <Box
+                        key={student.reg_number}
+                        paddingBottom={'2rem'}
+                        _hover={{ cursor: 'pointer', color: 'teal.500' }}
+                    >
+                        <Link href={`/students/${student.reg_number}`}>
+                            {/* Student name */}
+                            <Text as={'b'}>
+                                {student.first_name} {student.last_name}
+                            </Text>
 
-                        {/* Student registration number */}
-                        <Text paddingTop={'0.5rem'}>{student.reg_number}</Text>
+                            {/* Student registration number */}
+                            <Text paddingTop={'0.5rem'}>
+                                {student.reg_number}
+                            </Text>
+                        </Link>
                     </Box>
                 ))}
         </Box>
