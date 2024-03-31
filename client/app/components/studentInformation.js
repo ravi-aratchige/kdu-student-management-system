@@ -7,7 +7,7 @@ export default function StudentInformation(props) {
     const student = props.data;
 
     return (
-        <Flex justifyContent={'normal'}>
+        <Flex justifyContent={'normal'} paddingBottom={'1rem'}>
             {/* Labels */}
             <Box>
                 <Text fontWeight={'bold'} paddingBottom={'1.5rem'}>
