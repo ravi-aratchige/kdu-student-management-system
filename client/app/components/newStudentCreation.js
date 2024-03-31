@@ -31,6 +31,8 @@ export default function NewStudentCreation() {
         reg_number: '',
         first_name: '',
         last_name: '',
+        gender: '',
+        phone_number: 0,
         address: '',
         email: '',
         date_of_birth: '',
@@ -39,13 +41,13 @@ export default function NewStudentCreation() {
         active_course_codes: [],
         completed_course_codes: [],
         semester: 1,
-        batch: 0,
+        intake: 0,
     });
 
     // Get data for new student from form input values
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'batch') {
+        if (name === 'intake' || name === 'phone_number') {
             setFormData({ ...formData, [name]: parseInt(value) });
         } else {
             setFormData({ ...formData, [name]: value });
@@ -123,6 +125,31 @@ export default function NewStudentCreation() {
                                 type="text"
                                 name="last_name"
                                 value={formData.last_name}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
+
+                        {/* Gender */}
+                        <FormControl paddingBottom={'0.5rem'}>
+                            <FormLabel>Gender</FormLabel>
+                            <Select
+                                placeholder="Select gender"
+                                name="gender"
+                                value={formData.gender}
+                                onChange={handleChange}
+                            >
+                                <option>Male</option>
+                                <option>Female</option>
+                            </Select>
+                        </FormControl>
+
+                        {/* Phone number */}
+                        <FormControl paddingBottom={'0.5rem'}>
+                            <FormLabel>Phone number</FormLabel>
+                            <Input
+                                type="number"
+                                name="phone_number"
+                                value={formData.phone_number}
                                 onChange={handleChange}
                             />
                         </FormControl>
@@ -205,8 +232,8 @@ export default function NewStudentCreation() {
                             <FormLabel>Intake</FormLabel>
                             <Select
                                 placeholder="Select intake"
-                                name="batch"
-                                value={formData.batch}
+                                name="intake"
+                                value={formData.intake}
                                 onChange={handleChange}
                             >
                                 <option>39</option>
