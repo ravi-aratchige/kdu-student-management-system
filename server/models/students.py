@@ -11,7 +11,7 @@ class StudentModel(Base):
     first_name = Column(String)
     last_name = Column(String)
     gender = Column(String)
-    phone_number = Column(Integer)
+    phone_number = Column(String)
     address = Column(String)
     email = Column(String)
     date_of_birth = Column(Date)
