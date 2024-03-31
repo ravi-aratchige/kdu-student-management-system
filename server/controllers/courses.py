@@ -79,11 +79,19 @@ async def get_all_courses_for_student(reg_number: str, db: db_session_dependency
         .all()
     )
 
+    # Get list of all courses valid for student (by degree)
+    all_courses = (
+        db.query(CourseModel)
+        .filter(CourseModel.course_degrees.any(student.degree))
+        .all()
+    )
+
     # Return success response and data to client
     return {
         "message": f"All courses for student {reg_number} retrieved successfully",
         "active_courses": active_courses_list,
         "completed_courses": completed_courses_list,
+        "all_courses": all_courses,
     }
 
 
