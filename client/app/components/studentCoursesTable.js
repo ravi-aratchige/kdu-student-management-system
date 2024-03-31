@@ -5,14 +5,9 @@ export default function StudentCoursesTable(props) {
     // Get student data from props
     const student = props.data;
 
-    // // Combine active_course_codes and completed_course_codes into a single array
-    // const all_course_codes = [
-    //     ...student.active_course_codes,
-    //     ...student.completed_course_codes,
-    // ];
-
-    // // Log the new array
-    // console.log(all_course_codes);
+    if (student) {
+        // console.log(student.reg_number);
+    }
 
     return (
         <Table variant="simple" colorScheme="teal">
@@ -26,7 +21,7 @@ export default function StudentCoursesTable(props) {
             </Thead>
             <Tbody>
                 <Tr>
-                    <Td>Introduction to Programming</Td>
+                    <Td>{student.reg_number}</Td>
                     <Td>CSE101</Td>
                     <Td>
                         <Checkbox defaultChecked />
