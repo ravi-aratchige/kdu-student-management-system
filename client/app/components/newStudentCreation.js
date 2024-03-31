@@ -32,7 +32,7 @@ export default function NewStudentCreation() {
         first_name: '',
         last_name: '',
         gender: '',
-        phone_number: 0,
+        phone_number: '',
         address: '',
         email: '',
         date_of_birth: '',
@@ -47,17 +47,18 @@ export default function NewStudentCreation() {
     // Get data for new student from form input values
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'intake' || name === 'phone_number') {
+        if (name === 'intake') {
             setFormData({ ...formData, [name]: parseInt(value) });
         } else {
             setFormData({ ...formData, [name]: value });
         }
     };
 
-    // Submit the form
+    // Handler for submitting the form
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // Send student data to endpoint to register new student
             const response = await fetch('http://localhost:8000/students/', {
                 method: 'POST',
                 headers: {
@@ -65,11 +66,21 @@ export default function NewStudentCreation() {
                 },
                 body: JSON.stringify(formData),
             });
+
+            // Check if the server sends an error response
             if (!response.ok) {
+                // Display toast with error message
+                toast({
+                    title: 'Registration Failed',
+                    description: 'Student could not be registered',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                });
                 throw new Error('Failed to register student');
             }
 
-            // Display success message using toast
+            // Display toast with success message
             toast({
                 title: 'Student Registered',
                 description: 'Student registered successfully',
