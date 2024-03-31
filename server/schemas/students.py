@@ -9,7 +9,7 @@ class StudentSchema(BaseModel):
     first_name: str
     last_name: str
     gender: str = "Male"
-    phone_number: int = 0
+    phone_number: str
     address: str
     email: EmailStr
     date_of_birth: date
