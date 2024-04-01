@@ -4,6 +4,7 @@
 from fastapi import HTTPException
 from models.students import StudentModel
 from schemas.students import StudentSchema
+from utilities.logs import get_action_logger
 from config.database import db_session_dependency
 
 
@@ -55,6 +56,10 @@ async def register_new_student(student: StudentSchema, db: db_session_dependency
     db.add(new_student)
     db.commit()
     db.refresh(new_student)
+
+    # Save logs of student registration
+    logger = get_action_logger()
+    logger.student(f"Registered new student {new_student.reg_number}")
 
     # Return the newly created student
     return {
@@ -154,6 +159,10 @@ async def update_student(
     # Commit changes to database
     db.commit()
 
+    # Save logs of student update
+    logger = get_action_logger()
+    logger.student(f"Updated student {updated_student.reg_number}")
+
     # Return success response to client
     return {
         "message": f"Student {reg_number} updated successfully",
@@ -182,6 +191,10 @@ async def delete_student(reg_number: str, db: db_session_dependency):
     # Delete student from database
     db.delete(student)
     db.commit()
+
+    # Save logs of student deletion
+    logger = get_action_logger()
+    logger.student(f"Deleted student {student.reg_number}")
 
     # Return success response to client
     return {
