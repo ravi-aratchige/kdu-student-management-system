@@ -46,7 +46,7 @@ def get_action_logger():
 
     # Setup formatter and bind to file handler
     formatter = logging.Formatter(
-        "%(asctime)s : %(name)s : %(levelname)s : %(message)s"
+        "%(asctime)s | %(name)s | %(levelname)s | %(message)s"
     )
     file_handler.setFormatter(formatter)
 
