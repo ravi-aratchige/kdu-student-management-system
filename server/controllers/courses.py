@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from models.courses import CourseModel
 from schemas.courses import CourseSchema
 from models.students import StudentModel
+from utilities.logs import get_action_logger
 from config.database import db_session_dependency
 
 
@@ -129,6 +130,10 @@ async def create_course(course: CourseSchema, db: db_session_dependency):
     db.commit()
     db.refresh(new_course)
 
+    # Save logs of course creation
+    logger = get_action_logger()
+    logger.course(f"Created new course {new_course.course_code}")
+
     # Return success response to client
     return {
         "message": f"Course '{course.course_name}' created successfully",
@@ -162,6 +167,10 @@ async def update_course(
     # Commit changes to database
     db.commit()
 
+    # Save logs of course update
+    logger = get_action_logger()
+    logger.course(f"Updated course {updated_course.course_code}")
+
     # Return success response and data to client
     return {
         "message": f"Course {course_code} updated successfully",
@@ -190,6 +199,10 @@ async def delete_course(course_code: str, db: db_session_dependency):
     # Delete course from database
     db.delete(course)
     db.commit()
+
+    # Save logs of course deletion
+    logger = get_action_logger()
+    logger.course(f"Deleted course {course.course_code}")
 
     # Return success response and data to client
     return {
