@@ -34,6 +34,7 @@ export default function StudentList({ degree }) {
             {/* List of students */}
             {students
                 .filter((student) => student.degree === degree)
+                .sort((a, b) => a.reg_number.localeCompare(b.reg_number))
                 .map((student) => (
                     <Box
                         key={student.reg_number}
