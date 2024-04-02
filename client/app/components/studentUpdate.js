@@ -145,7 +145,7 @@ export default function StudentUpdate(props) {
             try {
                 // fetch student courses
                 const response = await fetch(
-                    `http://localhost:8000/courses/${regNumber}`
+                    `https://sctt-caramel-labs-2.koyeb.app/courses/${regNumber}`
                 );
                 const data = await response.json();
 
