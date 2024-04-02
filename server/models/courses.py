@@ -1,5 +1,5 @@
 from typing import List
-from config.database import Base
+from server.config.database import Base
 from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String, Boolean
 
 

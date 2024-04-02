@@ -2,10 +2,10 @@
 """
 
 from fastapi import HTTPException
-from models.students import StudentModel
-from schemas.students import StudentSchema
-from utilities.logs import get_action_logger
-from config.database import db_session_dependency
+from server.models.students import StudentModel
+from server.schemas.students import StudentSchema
+from server.utilities.logs import get_action_logger
+from server.config.database import db_session_dependency
 
 
 # *********************** CONTROLLERS ***********************

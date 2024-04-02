@@ -11,7 +11,7 @@ List of routes:
 """
 
 from fastapi import APIRouter
-from controllers.courses import (
+from server.controllers.courses import (
     create_course,
     get_all_courses,
     get_all_courses_for_degree,

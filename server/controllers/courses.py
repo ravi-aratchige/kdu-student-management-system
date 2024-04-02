@@ -1,9 +1,9 @@
 from fastapi import HTTPException
-from models.courses import CourseModel
-from schemas.courses import CourseSchema
-from models.students import StudentModel
-from utilities.logs import get_action_logger
-from config.database import db_session_dependency
+from server.models.courses import CourseModel
+from server.schemas.courses import CourseSchema
+from server.models.students import StudentModel
+from server.utilities.logs import get_action_logger
+from server.config.database import db_session_dependency
 
 
 # *********************** CONTROLLERS ***********************
