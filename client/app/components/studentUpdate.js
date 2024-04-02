@@ -65,7 +65,7 @@ export default function StudentUpdate(props) {
             console.log('About to send request');
             // Send student data to endpoint to register new student
             const response = await fetch(
-                `http://localhost:8000/students/${formData.reg_number}`,
+                `https://sctt-caramel-labs-2.koyeb.app/students/${formData.reg_number}`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -110,7 +110,7 @@ export default function StudentUpdate(props) {
         try {
             // fetch student data
             const response = await fetch(
-                `http://localhost:8000/students/${regNumber}`
+                `https://sctt-caramel-labs-2.koyeb.app/students/${regNumber}`
             );
             const { data: student } = await response.json();
 
