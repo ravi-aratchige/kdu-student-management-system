@@ -59,13 +59,16 @@ export default function NewStudentCreation() {
         e.preventDefault();
         try {
             // Send student data to endpoint to register new student
-            const response = await fetch('http://localhost:8000/students/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+            const response = await fetch(
+                'https://sctt-caramel-labs-2.koyeb.app/students/',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                }
+            );
 
             // Check if the server sends an error response
             if (!response.ok) {

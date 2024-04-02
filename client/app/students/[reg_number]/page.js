@@ -43,7 +43,7 @@ export default function Page({ params }) {
             try {
                 // Get data for student
                 const studentInfoResponse = await fetch(
-                    `http://localhost:8000/students/${params.reg_number}`
+                    `https://sctt-caramel-labs-2.koyeb.app/students/${params.reg_number}`
                 );
                 if (!studentInfoResponse.ok) {
                     throw new Error('Failed to fetch API data for students');
@@ -53,7 +53,7 @@ export default function Page({ params }) {
 
                 // Get data for student's courses
                 const studentCoursesResponse = await fetch(
-                    `http://localhost:8000/courses/${params.reg_number}`
+                    `https://sctt-caramel-labs-2.koyeb.app/courses/${params.reg_number}`
                 );
                 if (!studentCoursesResponse.ok) {
                     throw new Error('Failed to fetch API data for courses');
@@ -82,7 +82,7 @@ export default function Page({ params }) {
     const deleteStudent = async () => {
         try {
             const response = await fetch(
-                `http://localhost:8000/students/${student.reg_number}`,
+                `https://sctt-caramel-labs-2.koyeb.app/students/${student.reg_number}`,
                 {
                     method: 'DELETE',
                 }
