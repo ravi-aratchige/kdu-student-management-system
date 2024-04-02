@@ -2,14 +2,11 @@
 """
 
 from fastapi import FastAPI
-from config.database import engine, Base
+from server.config.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
-from routes.logs import router as logs_router
-from routes.courses import router as course_router
-from routes.students import router as student_router
-
-# Create database tables based on defined models
-Base.metadata.create_all(bind=engine)
+from server.routes.logs import router as logs_router
+from server.routes.courses import router as course_router
+from server.routes.students import router as student_router
 
 # Set project name
 project_name = "KDU Student Management System"
@@ -41,6 +38,9 @@ app.include_router(student_router)
 app.include_router(course_router)
 app.include_router(logs_router)
 
+# Create database tables based on defined models
+Base.metadata.create_all(bind=engine)
+
 
 # Root route
 @app.get("/", tags=["Core"])
@@ -48,3 +48,8 @@ async def root():
     return {
         "message": "Hello from the API!",
     }
+
+
+# Return FastAPI instance (for testing etc.)
+def get_app_instance():
+    return app

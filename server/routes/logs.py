@@ -6,7 +6,7 @@ List of routes:
 """
 
 from fastapi import APIRouter
-from controllers.logs import get_all_logs
+from server.controllers.logs import get_all_logs
 
 # Setup logs router
 router = APIRouter(

@@ -11,7 +11,7 @@ List of routes:
 """
 
 from fastapi import APIRouter
-from controllers.students import (
+from server.controllers.students import (
     get_all_students,
     get_student_by_id,
     get_student_by_reg_number,
