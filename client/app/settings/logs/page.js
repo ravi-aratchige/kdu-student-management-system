@@ -23,7 +23,9 @@ export default function Page() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/logs/');
+                const response = await fetch(
+                    'https://sctt-caramel-labs-2.koyeb.app/logs/'
+                );
                 if (!response.ok) {
                     throw new Error('Failed to fetch API data');
                 }
