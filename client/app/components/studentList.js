@@ -12,7 +12,9 @@ export default function StudentList({ degree }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/students/');
+                const response = await fetch(
+                    'https://sctt-caramel-labs-2.koyeb.app/students/'
+                );
                 if (!response.ok) {
                     throw new Error('Failed to fetch API data');
                 }

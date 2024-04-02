@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@chakra-ui/react';
+import { useCallback } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -45,6 +46,8 @@ export default function StudentUpdate(props) {
         intake: 0,
     });
 
+    console.log(formData);
+
     // Get data for new student from form input values
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -62,7 +65,7 @@ export default function StudentUpdate(props) {
             console.log('About to send request');
             // Send student data to endpoint to register new student
             const response = await fetch(
-                `http://localhost:8000/students/${formData.reg_number}`,
+                `https://sctt-caramel-labs-2.koyeb.app/students/${formData.reg_number}`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -89,7 +92,7 @@ export default function StudentUpdate(props) {
             // Display toast with success message
             toast({
                 title: 'Student Updated',
-                description: 'Student updated successfully',
+                description: 'Refresh the page to see changes',
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
@@ -103,135 +106,65 @@ export default function StudentUpdate(props) {
     };
 
     // Function to update state of formData
-    async function updateStateOfFormData(regNumber) {
+    const updateStateOfFormData = useCallback(async (regNumber) => {
         try {
-            let updatedFormData = { ...formData };
-            // 1. Get data for student from database
+            // fetch student data
             const response = await fetch(
-                `http://localhost:8000/students/${regNumber}`
+                `https://sctt-caramel-labs-2.koyeb.app/students/${regNumber}`
             );
             const { data: student } = await response.json();
 
-            // 2. Get all of the student's data out of the above data
-            const {
-                reg_number,
-                first_name,
-                last_name,
-                gender,
-                phone_number,
-                address,
-                email,
-                date_of_birth,
-                nic_number,
-                degree,
-                semester,
-                intake,
-            } = student;
-
-            console.log(`Number: ${reg_number}`);
-
-            // 3. Update the formData with these values
-            if (reg_number) {
-                updatedFormData.reg_number = reg_number;
-            }
-            if (first_name) {
-                updatedFormData.first_name = first_name;
-            }
-            if (last_name) {
-                updatedFormData.last_name = last_name;
-            }
-            if (gender) {
-                updatedFormData.gender = gender;
-            }
-            if (phone_number) {
-                updatedFormData.phone_number = phone_number;
-            }
-            if (address) {
-                updatedFormData.address = address;
-            }
-            if (email) {
-                updatedFormData.email = email;
-            }
-            if (date_of_birth) {
-                updatedFormData.date_of_birth = date_of_birth;
-            }
-            if (nic_number) {
-                updatedFormData.nic_number = nic_number;
-            }
-            if (degree) {
-                updatedFormData.degree = degree;
-            }
-            if (semester) {
-                updatedFormData.semester = semester;
-            }
-            if (intake) {
-                updatedFormData.intake = intake;
-            }
-
-            setFormData(updatedFormData);
-
-            // console.log(updatedFormData.reg_number);
-            console.log(formData.reg_number);
+            // update form data
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                reg_number: student.reg_number,
+                first_name: student.first_name,
+                last_name: student.last_name,
+                gender: student.gender,
+                phone_number: student.phone_number,
+                address: student.address,
+                email: student.email,
+                date_of_birth: student.date_of_birth,
+                nic_number: student.nic_number,
+                degree: student.degree,
+                semester: student.semester,
+                intake: student.intake,
+            }));
         } catch (error) {
             console.error('Error updating formData:', error);
         }
-
-        console.log('Updated state of form data');
-    }
+    }, []);
 
     // Custom hook to manage state of modal
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // Function to update state of active courses and completed courses
-    async function updateStateOfCourses(regNumber) {
-        updateStateOfFormData(regNumber);
-        try {
-            // Get data for student courses from the endpoint
-            const response = await fetch(
-                `http://localhost:8000/courses/${regNumber}`
-            );
-            const data = await response.json();
+    // Custom callback to update state of active courses and completed courses
+    const updateStateOfCourses = useCallback(
+        async (regNumber) => {
+            await updateStateOfFormData(regNumber);
+            try {
+                // fetch student courses
+                const response = await fetch(
+                    `http://localhost:8000/courses/${regNumber}`
+                );
+                const data = await response.json();
 
-            // Check if the server sends an error response
-            if (!response.ok) {
-                throw new Error('Failed to fetch student courses');
+                // update form data with course codes
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    active_course_codes: data.active_courses.map(
+                        (course) => course.course_code
+                    ),
+                    completed_course_codes: data.completed_courses.map(
+                        (course) => course.course_code
+                    ),
+                }));
+            } catch (error) {
+                console.error('Error updating data:', error);
             }
-
-            // Extract active and completed courses
-            const { active_courses, completed_courses } = data;
-
-            // Create two arrays named "currentActiveCourseCodes" and "currentCompletedCourseCodes" using the data from the endpoint
-            const currentActiveCourseCodes = active_courses.map(
-                (course) => course.course_code
-            );
-            const currentCompletedCourseCodes = completed_courses.map(
-                (course) => course.course_code
-            );
-
-            // Empty the arrays called "active_course_codes" and "completed_course_codes" in the formData
-            const updatedFormData = {
-                ...formData,
-                active_course_codes: [],
-                completed_course_codes: [],
-            };
-
-            // Put the course codes in "currentActiveCourseCodes" and "currentCompletedCourseCodes"
-            // to "active_course_codes" and "completed_course_codes" in the formData respectively (i.e. update the state)
-            updatedFormData.active_course_codes = currentActiveCourseCodes;
-            updatedFormData.completed_course_codes =
-                currentCompletedCourseCodes;
-
-            // Update the formData state
-            setFormData(updatedFormData);
-
-            console.log(formData.active_course_codes);
-            console.log(formData.completed_course_codes);
-
-            console.log('Hello');
-        } catch (error) {
-            console.error('Error updating data:', error);
-        }
-    }
+        },
+        [updateStateOfFormData]
+    );
 
     return (
         <>

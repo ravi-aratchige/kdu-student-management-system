@@ -22,7 +22,7 @@ export default function NavigationBar() {
                 </Link>
             </Center>
             <Center paddingRight={'2rem'}>
-                <h1>Settings</h1>
+                <Link href={'/settings'}>Settings</Link>
             </Center>
         </Flex>
     );
